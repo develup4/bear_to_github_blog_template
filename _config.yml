@@ -18,13 +18,13 @@ minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "n
 locale: "en-US"
 title: "내 인프라는 나 자신이었다"
 title_separator: "-"
-subtitle: # site tagline that appears below site title in masthead
+subtitle:
 name: "내 인프라는 나 자신이었다"
-description: "스크랩북이나 GetStarted에 나오는 내용말고, 하나라도 Article을 작성해보자(https://velog.io/@gwak2837)"
+description: "Spring Reboot 프로젝트 진행 중"
 url: "https://develup4.github.io"
 baseurl: # the subpath of your site, e.g. "/blog"
 repository: "develup4/develup4.github.io"
-teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser:
 logo: # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title: # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
@@ -94,9 +94,9 @@ analytics:
 # Site Author
 author:
   name: "깨발자"
-  avatar: "https://www.google.com/url?sa=i&url=http%3A%2F%2Fm.blog.naver.com%2Fshy9981%2F110175408023&psig=AOvVaw3VAzFrVV_kJiK7Wxvw4wF0&ust=1620657999675000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIj05tvrvPACFQAAAAAdAAAAABAD"
-  bio: "김성후"
-  location: "Korea"
+  avatar: "/assets/images/teaser.jpeg"
+  bio: "Spring Reboot 프로젝트 진행 중"
+  location: "South Korea"
   email: "develup4@gmail.com"
   links:
     - label: "Email"
@@ -129,7 +129,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://github.com/develup4/"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
@@ -204,7 +204,7 @@ sass:
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Seoul
 
 # Plugins (previously gems:)
 plugins:
