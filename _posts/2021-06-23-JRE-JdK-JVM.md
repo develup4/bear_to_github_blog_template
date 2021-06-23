@@ -4,7 +4,6 @@ title:  JRE JdK JVM
 categories: Java 
 tags: JRE  JDK  JVM
  
-classes: wide
 ---
 
   

@@ -4,7 +4,6 @@ title:  Macro expansion
 categories: C++ 
 tags: MacroExpansion
  
-classes: wide
 ---
 
   

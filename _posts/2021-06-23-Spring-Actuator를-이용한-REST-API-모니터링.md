@@ -4,7 +4,6 @@ title:  Spring Actuator를 이용한 REST API 모니터링
 categories: Spring 
 tags: Actuator  REST-API  monitoring
  
-classes: wide
 ---
 
   

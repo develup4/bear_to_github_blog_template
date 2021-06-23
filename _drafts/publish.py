@@ -50,9 +50,9 @@ def write_meta_info(f, read_lines):
         for tag in read_lines[1].split('#')[2:]:
             f.write(tag + " ")
     f.write('\n')
-    f.write('classes: wide\n')
     if toc_count > 3:
         f.write('toc: true\n')
+        f.write('toc_sticky: true\n')
     f.write('---\n\n')
     f.write('  \n')
     print('[  SUCCESS  ] write meta info')

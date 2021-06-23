@@ -4,7 +4,6 @@ title:  Spring Security
 categories: Spring 
 tags: Security
  
-classes: wide
 ---
 
   

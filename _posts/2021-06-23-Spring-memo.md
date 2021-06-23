@@ -4,7 +4,6 @@ title:  Spring memo
 categories: Spring
 
 tags: 
-classes: wide
 ---
 
   

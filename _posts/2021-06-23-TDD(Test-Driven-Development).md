@@ -4,8 +4,8 @@ title:  TDD(Test-Driven Development)
 categories: Agile 
 tags: TDD
  
-classes: wide
 toc: true
+toc_sticky: true
 ---
 
   
