@@ -49,7 +49,7 @@ def write_meta_info(f, read_lines):
         f.write('tags: ');
         for tag in read_lines[1].split('#')[2:]:
             f.write(tag + " ")
-    f.write('\n')
+        f.write('\n')
     if toc_count > 3:
         f.write('toc: true\n')
         f.write('toc_sticky: true\n')
