@@ -20,7 +20,7 @@
 
 .archive__item {
   position: relative;
-
+  margin-top: -40px;
   a {
     position: relative;
     z-index: 10;
@@ -83,6 +83,24 @@
   a {
     position: relative;
   }
+}
+
+.flex {
+  display: flex;
+}
+
+.archive__single-subtitle {
+  font-size: 14px;
+  margin-left: 6px;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.archive__single-tags {
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: -25px;
+  margin-bottom: 10px;
 }
 
 .archive__item-teaser {
@@ -198,7 +216,8 @@
 
   .page__meta {
     margin: 0 0 4px;
-    font-size: 0.6em;
+    font-size: 10px;
+    font-weight: 200;
   }
 
   .page__meta-sep {
