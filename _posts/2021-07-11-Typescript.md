@@ -1,8 +1,8 @@
 ---
 title:  Typescript
 
-categories: Javascript 
-tags: Typescript
+categories: language 
+tags: typescript
  
 ---
 

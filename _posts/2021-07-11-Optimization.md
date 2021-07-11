@@ -1,8 +1,8 @@
 ---
 title:  Optimization
 
-categories: ML/DL 
-tags: Optimization
+categories: machine_learning 
+tags: optimization
  
 ---
 
@@ -42,12 +42,12 @@ x_train_scaled = (x_train - train_mean) / train_std    # 평균을 빼고 표준
   
 **< 과대적합, 과소적합 >**  
 => 퀀트투자에서 백테스트를 할때, 너무 최적화하면 이론상으로 수익률이 엄청 크게 나올 수 있지만 현실에 반영이 안된다. 이것과 유사한 것 같다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7.svg'>알 수 없음.svg</a>  
-사진 삭제  
-사진 설명을 입력하세요.  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Optimization/E228BDCC-9430-40BC-A005-9F10ED2BC540.png)  
+  
 훈련세트의 손실(가설과 정답의 차)과 검증세트의 손실이 역전되는 정도의 epoch를 찾아서,  
 그만큼 학습시키는 것이 좋다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%202.svg'>알 수 없음 2.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Optimization/B9CCC2E6-E7EA-4B2F-95FB-2667D8BA2EDD.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 (위의 경우라면 50회정도 하는것이 적당하다)  
@@ -56,7 +56,8 @@ x_train_scaled = (x_train - train_mean) / train_std    # 평균을 빼고 표준
 **< L1 규제 >**  
 골자는 천천히 학습되도록 해서 소외되는 점이 없도록 한다이다.  
 => 손실에 노름이란 값을 더해서 손실을 늘려서 학습을 느리게 만든다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%203.svg'>알 수 없음 3.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Optimization/DC53F0C0-5A11-43CA-BB27-9BFB48C7ED63.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 뒤에 알파값은 가중치이고 시그마가 노름이다. 손실(L)이 늘어난다.  
@@ -65,7 +66,8 @@ x_train_scaled = (x_train - train_mean) / train_std    # 평균을 빼고 표준
 **< L2 규제 >**  
 노름의 제곱을 더한다. 규제가 좀 더 쎄다.  
 L2 규제를 추가한것을 릿지 모델이라고 한다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%204.svg'>알 수 없음 4.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Optimization/846B6310-C2E6-4F6E-96C4-A933CDACD723.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
   
@@ -74,7 +76,8 @@ L2 규제를 추가한것을 릿지 모델이라고 한다.
   
   
 **< 교차 검증구현 >**  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%205.svg'>알 수 없음 5.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Optimization/8FB9B605-E978-4040-88AA-14E7A321EA1C.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 * 0열 선택0열 다음에 열 추가  

@@ -1,8 +1,8 @@
 ---
 title:  Spring Security
 
-categories: Spring 
-tags: Security
+categories: spring 
+tags: security
  
 ---
 

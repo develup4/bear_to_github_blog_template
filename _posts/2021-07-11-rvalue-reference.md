@@ -1,17 +1,16 @@
 ---
 title:  rvalue reference
 
-categories: C++
-
-tags: 
+categories: language  
+tags: cpp
+ 
 toc: true
 toc_sticky: true
 ---
 
   
   
-   
-말그대로 rvalue의 reference이다. 따라서 일반변수와 같은 lvalue는 참조하지 못한다.  
+ 말그대로 rvalue의 reference이다. 따라서 일반변수와 같은 lvalue는 참조하지 못한다.  
 (나중 universal reference와는 구분한다)  
   
 다만 어려워지는 부분은,  
@@ -20,6 +19,7 @@ rvalue의 정의가 Modern C++부터 굉장히 복잡해졌다는 점이다.
 이것은 다른 포스트에 제대로 정리해야겠다.  
   
 기본적인 사용례를 보면 아래와 같다.  
+```cpp  
 #include <iostream>  
 #include <algorithm>  
 using namespace std;  
@@ -43,15 +43,16 @@ int main()
 	f(move(n));   
 	return 0;  
 }  
-  
+```  
 && 연산자로 rvalue reference를 정의한다.  
 그리고 그 중 rvalue reference로 변환하는 move 함수에 대해 살펴보면,  
+```cpp  
 template <typename T>  
 T&& move(T t)  
 {  
     return static_cast<T&&>(t);  
 }  
-  
+```  
 이 정도로 구현된다고 추측할 수 있다. 즉, 위 예제에서 move 함수 윗 라인과 동일한 것이다.  
 move라는 함수의 이름은 관련있는 개념인 이동 생성자와 연관이 있는것으로 보인다.  
   
@@ -63,6 +64,7 @@ auto&& rRef = n;
   
 위와 같이 lvalue를 받는다던지,  
 아래 예제에서 주석의 arg처럼 사용이 가능한 것이다.  
+```cpp  
 #include <iostream>  
 #include <mutex>  
 using namespace std;  
@@ -84,16 +86,17 @@ int main()
 	lockAndCall(f3, 10);   
 	return 0;  
 }  
-  
+```  
 위 예제는 perfect forwarding에 대한 예제이기도 한데,  
 인자로 rvalue reference를 받는 함수에서 받은 인자를 다른 함수에게 rvalue로 전달하는 것을 **perfect forwarding**이라고 한다.  
   
+```cpp  
 template<typename F, typename A> void lockAndCall(F func, A&& arg)  
 {  
 	lock_guard<mutex> lock(m);  
 	func(arg);    // why not?  
 }  
-  
+```  
 이미 arg가 A&& 타입인데 func에게 그대로 전달하면 안되나? 라고 생각할 수 있지만,  
 기억해야 한다.  
   

@@ -1,16 +1,16 @@
 ---
 title:  auto와 decltype
 
-categories: C++
-
-tags: 
+categories: language  
+tags: cpp
+ 
 toc: true
 toc_sticky: true
 ---
 
   
   
-   
+```cpp  
 #include <iostream>  
 #include <vector>  
 using namespace std;  
@@ -30,7 +30,7 @@ int main()
   
 	return 0;  
 }  
-  
+```  
   
 auto와 decltype은 둘 다 타입을 추론하는데 사용하는 Modern C++ 키워드이다.  
 주석으로 설명한 것처럼 초기값에서 추론할지, 혹은 return 값으로 추론할지에 대한 차이가 있으며,  

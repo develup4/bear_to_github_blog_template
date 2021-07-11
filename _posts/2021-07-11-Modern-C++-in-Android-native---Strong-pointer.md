@@ -1,8 +1,8 @@
 ---
 title:  Modern C++ in Android native - Strong pointer 
 
-categories: C++ 
-tags: Android  StrongPointer
+categories: language  
+tags: cpp  android  strong_pointer
  
 toc: true
 toc_sticky: true

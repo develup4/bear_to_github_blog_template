@@ -1,8 +1,8 @@
 ---
 title:  Modern C++ in Android native - Singleton
 
-categories: C++ 
-tags: Android  Singleton
+categories: language  
+tags: cpp  android  singleton
  
 toc: true
 toc_sticky: true
@@ -10,7 +10,7 @@ toc_sticky: true
 
   
   
-   
+```cpp  
 #include <stdio.h>  
 #include <pthread.h>  
 #include "StrongPointer.h"  
@@ -64,7 +64,7 @@ int main()
 	sp<AAA> p2 = AAA::getInstance();  
 	return 0;  
 }  
-  
+```  
   
 Android Native에서도 Singleton 구현을 위한 템플릿을 제공한다.  
   

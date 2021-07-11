@@ -1,8 +1,8 @@
 ---
 title:  Macro expansion
 
-categories: C++ 
-tags: MacroExpansion
+categories: language 
+tags: cpp  macro_expansion
  
 ---
 

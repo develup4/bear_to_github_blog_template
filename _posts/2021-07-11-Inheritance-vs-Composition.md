@@ -1,7 +1,7 @@
 ---
 title:  Inheritance vs Composition
 
-categories: OOP
+categories: object
 
 tags: 
 ---

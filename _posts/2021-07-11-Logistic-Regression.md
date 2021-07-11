@@ -1,8 +1,8 @@
 ---
 title:  Logistic Regression
 
-categories: ML/DL 
-tags: LogisticRegression 
+categories: machine_learning 
+tags: logistic_regression
  
 toc: true
 toc_sticky: true
@@ -32,11 +32,11 @@ toc_sticky: true
   
 그래서 중간에 활성화 함수 단계를 두어서 이를 해결한다.  
 **(Sigmoid 함수**…스타트업 드라마에서도 남주혁이 쓰더라)  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7.svg'>알 수 없음.svg</a>  
-사진 삭제  
-사진 설명을 입력하세요.  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/61CAA033-ECC5-42AF-BCAE-541B01D35B18.png)  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%202.svg'>알 수 없음 2.svg</a>  
+  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/705C51BA-DBCF-4282-849A-3879359352F5.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 이렇게 생긴 함수이며 아래와 같은 수식으로 표현한다.  
@@ -51,7 +51,8 @@ toc_sticky: true
 (이전에는 그냥 2차함수의 그래프였을 뿐이므로)  
   
 Cost function에 Gradient Descent방식을 사용하기가 어렵다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%203.svg'>알 수 없음 3.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/B915EB49-5AFD-4E43-B74D-828C36B9D3AB.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
   
@@ -59,7 +60,8 @@ Cost function에 Gradient Descent방식을 사용하기가 어렵다.
 엔트로피란다…점점 어려운 느낌이 들지만…여차저차해서 계산이 끝나면 쉬운 포맷이 나오더라. 참자.  
   
 결과적으로 아래와 같은 형태의 비용함수가 나오게 되는 것이고,  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%204.svg'>알 수 없음 4.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/BD71A26F-49E5-4B61-A827-BDF38E3FCD27.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 실제 정답(label)의 확률 분포와 h(x)의 확률분포를 cost로 계산하면,  
@@ -67,12 +69,14 @@ cost가 0에서 무한대까지의 형태로 표현이 가능하고 위와 같�
   
 즉, 여기서부터는 로그함수의 형태라서 이전처럼 Gradient Descent를 이용할 수 있다.  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%205.svg'>알 수 없음 5.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/09F18FC4-8F9A-40FC-B8F0-B6DC46A9E093.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 수식으로 표현하면 cost function은 위와 같다.  
 이제 cost에 대해서 미분을 해서 역전파를 해야하는데 이런 저런 계산을 거치고나면,  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%206.svg'>알 수 없음 6.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/C0E352CE-6994-476C-BAFB-E29C025E0FD4.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 기존 y_hat 부분이 **a(sigmoid 함수의 결과값)**로 바뀌었을뿐 계산법은 같다.  
@@ -144,7 +148,8 @@ plt.show()
 따라서 코드도 크게 다르지 않다.  
 forpass 결과값에 대해서 sigmoid(activation) 함수를 돌려서 a값을 얻어내고 이것을 이용하는 형태이다.  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%207.svg'>알 수 없음 7.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Logistic Regression/2AD970C9-019E-49D6-A9BB-1649CFA1FD3B.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 이렇게 했더니 새로운 데이터에도 끄떡없게 된다.  

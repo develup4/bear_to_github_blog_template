@@ -1,8 +1,8 @@
 ---
 title:  Modern C++ in Android native - Vector
 
-categories: C++ 
-tags: Android  Vector
+categories: language  
+tags: cpp  android  vector
  
 toc: true
 toc_sticky: true
@@ -10,7 +10,7 @@ toc_sticky: true
 
   
   
-   
+```cpp  
 #ifndef ANDROID_VECTOR_H  
 #define ANDROID_VECTOR_H  
   
@@ -26,7 +26,7 @@ template <class TYPE>
 class Vector : private VectorImpl  
 {  
    … 생략  
-  
+```  
   
 Android vector도 흔히 사용하는 standard vector와 인터페이스는 크게 다른점이 없다.  
 (그냥 길어서 코드도 생략했다)  
@@ -36,6 +36,8 @@ Android vector도 흔히 사용하는 standard vector와 인터페이스는 크�
   
 살펴볼만한 점은 내부에서 데이터를 가지는 방식인데,  
 Android vector는 SharedBuffer라는 녀석을 따로 두어서 그곳을 저장공간으로 삼는다.  
+  
+```cpp  
 namespace android {  
   
 class SharedBuffer  
@@ -118,7 +120,7 @@ public:
         // placed last so that it is adjcent to the buffer allocated.  
                 uint32_t                    mClientMetadata;  
 };  
-  
+```  
   
 이것은 Copy on Write라는 방식을 사용하기 위해서인데, Lazy copy라고도 부른다.  
 Vector<int> v1;  
@@ -137,6 +139,8 @@ SharedBuffer의 RefCount만 증가하는 것이다. 복사는 당장에 일어�
   
 VectorImpl을 보면 modern c++ 문법인 trivial과 관련된 값들이 보이는데,  
 Vector는 템플릿으로 구성되어 primitive 외에도 객체를 받을 수 있기에 이런 내용이 존재한다.  
+  
+```cpp  
 namespace android {  
   
 class VectorImpl  
@@ -147,9 +151,8 @@ public:
         HAS_TRIVIAL_DTOR    = 0x00000002,  
         HAS_TRIVIAL_COPY    = 0x00000004,  
     };  
+```  
   
-  
-modern c++ 항목에서 정리를 하겠지만,  
 trivial하다는 것은 단어의 뜻처럼 객체의 복사생성자에서 특별히 아무일도 하지 않음을 의미한다.  
   
 SharedBuffer는 operation new로 공간만 할당되어 있기 때문에,  

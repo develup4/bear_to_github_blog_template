@@ -1,8 +1,8 @@
 ---
 title:  JRE JdK JVM
 
-categories: Java 
-tags: JRE  JDK  JVM
+categories: language 
+tags: java  jre  jdk  jvm
  
 ---
 

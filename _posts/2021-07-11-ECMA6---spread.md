@@ -1,8 +1,8 @@
 ---
 title:  ECMA6 - spread
 
-categories: Javascript 
-tags: ES6
+categories: language 
+tags: javascript  es6
  
 ---
 

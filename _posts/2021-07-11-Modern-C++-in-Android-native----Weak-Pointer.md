@@ -1,17 +1,18 @@
 ---
 title:  Modern C++ in Android native -  Weak Pointer
 
-categories: C++ 
-tags: Android  WeakPointer
+categories: language  
+tags: cpp  android  weak_pointer
  
 toc: true
 toc_sticky: true
 ---
 
   
-  
    
 상호참조 문제가 있던 strong pointer의 마지막 예제에서 멤버의 sp 글자를 wp로만 바꿔보면,  
+  
+```cpp  
 using namespace android;  
   
 class AAA;  
@@ -47,12 +48,15 @@ int main()
   
 	return 0;  
 }  
+```  
   
 상호참조를 했음에도 소멸자가 잘불리며 객체가 소멸하는 것을 확인할 수 있다. 문제해결?  
 내용을 좀 더 살펴보도록 하자.  
   
 우선 wp가 바로 weak pointer이다.  
 뭔가 이름만 봐도 Strong pointer와 대비되는 느낌이다.  
+  
+```cpp  
 int main()  
 {  
 	{  
@@ -63,6 +67,7 @@ int main()
   
 	return 0;  
 }  
+```  
   
 wp는 -> 연산자가 오버로딩되지 않았기 때문에 객체에 접근할 수 없다.  
 ??? 포인터라면서...이..무슨..???  
@@ -74,6 +79,8 @@ wp는 스코프에서 벗어나서 사라지더라도 객체를 해제하지 않
 wp는 정말로 상호참조 문제만을 위해서 나온거 같다.  
 따라서 실제 사용을 위해서는 sp로 변환할 필요가 있는데,  
 이때는 promote()라는 멤버함수 사용이 필요하다.  
+  
+```cpp  
 int main() {  
 	{  
 		wp<AAA> p1 = new AAA;  
@@ -84,10 +91,12 @@ int main() {
   
 	return 0;  
 }  
+```  
   
 이렇게 변환하여 사용하면 잘 호출된다.  
 반대방향으로 sp에서 wp로 변환할때는 별도의 함수호출없이 바로 대입하면 된다는 점도 기억한다.  
   
+```cpp  
 #include <stdio.h>  
 #include "StrongPointer.h"  
 #include "RefBase.h"  
@@ -122,12 +131,14 @@ int main()
   
 	return 0;  
 }  
+```  
   
 좀 작위적이지만 위험할 수 있는 예제이다. brace를 나가면서 sp를 통해 객체가 소멸되었으나,  
 밖의 wp를 사용하려는 예제이다. 이건 백퍼 꾸래시다.  
   
 crash…  
   
+```cpp  
 int main()  
 {  
 	{  
@@ -145,6 +156,7 @@ int main()
   
 	return 0;  
 }  
+```  
   
 다만 promote() 함수는 객체의 유효성 검사까지 가능하기 때문에, 이것을 이용하면 문제를 방지할 수 있다.  
 근데 뭔가 그냥 포인터를 쓰는거만큼 귀찮은 일이 되어버린 느낌이다.  

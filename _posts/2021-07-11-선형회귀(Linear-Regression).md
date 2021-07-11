@@ -1,8 +1,8 @@
 ---
 title:  선형회귀(Linear Regression)
 
-categories: ML/DL 
-tags: LinearRegression
+categories: machine_learning 
+tags: linear_regression
  
 ---
 
@@ -31,7 +31,8 @@ w(weight)는 기울기, b(bias)는 y절편을 의미한다.
   
 아래 코드는 y = x라는 직선에 대해서 weight와 bias를 1로 잡았을때,  
 실제값과 계산값의 차이를 그래프로 보여준다.  
-![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/image%203.png)  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/1F5D8617-8C24-4D4E-B52B-7782A6DB3A1E.png)  
+  
 대표사진 삭제  
 사진 설명을 입력하세요.  
 import numpy as np  
@@ -90,7 +91,8 @@ plt.plt(w, j, ‘r-)
 plt.grid(True)  
 plt.show()  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7.svg'>알 수 없음.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/FEFCBF09-571C-4E3B-B305-76E33FF95FC8.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 제곱을 사용해서 물론 이차함수의 형태를 나타낸다.  
@@ -118,7 +120,8 @@ weight -= LearningRate * 접선의 기울기
 * 열 분할  
 * 너비 맞춤  
 * 삭제  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%202.svg'>알 수 없음 2.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/344987C0-9192-47DB-B097-249F5C529B92.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 Learning Rate는 진행의 속도이며,  
@@ -128,10 +131,12 @@ Learning Rate는 진행의 속도이며,
 => 너무 크면 발산해서 영원히 정답이 안나올수있다. 처음에는 매우 작은 소수점값으로 해본다.  
 다만 이 경우 탐색양이 더 많아져 오래걸린다. 경험의 영역. W, b는 machine이 구하지만 뮤는 사용자의 선택이다.  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%203.svg'>알 수 없음 3.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/7A5180D7-A9E1-41AC-BBF4-CC78BA9FF077.png)  
+  
 사진 삭제  
 Learning Rate가 커서 아름답지 못하게(?) 답을 찾아가고 있다  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%204.svg'>알 수 없음 4.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/36FAE87C-3A19-4363-869E-10596CE8884B.png)  
+  
 사진 삭제  
 답을 찾아가기는 커녕 발산하고 있다  
 이와 같이 접선의 기울기로 극저점을 찾아 정답을 찾는 방식을  
@@ -172,12 +177,14 @@ def plot_steps(guess, alpha, nsteps):
       
 plot_steps( 3, 0.03, 80 )  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%205.svg'>알 수 없음 5.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/4BE7526F-EF85-4F3B-8B42-9C0230171D94.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 하지만 생각해보면 w와 b는 독립적이기 때문에 2차원으로 표현할 수는 없고 아래처럼 3차원이 될 것이다.  
 저런 파란 공간에서 노란 구슬이 정답으로 굴러 내려갈 것이다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%206.svg'>알 수 없음 6.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/DC8CC874-DB39-491C-AD1D-79DBF7B5E009.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
   
@@ -223,14 +230,25 @@ plt.xlabel(‘x’)
 plt.ylabel(‘y’)  
 plt.show()  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%207.svg'>알 수 없음 7.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/F025DF7B-A9CC-4280-99F4-E69CD3F9DFE6.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
   
 backprop 함수 부분이 중요한데, 이 부분이 역전파 부분이다.  
 이 과정을 통해 진정으로 학습이 된다고 할 수 있고, 항상 이 계산이 제일 어렵다.  
 (물론 나중에는 tensorflow가 자동으로 미분을 해서 계산해주고, keras를 쓰면 그럴 필요조차도 없다)  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%208.svg'>알 수 없음 8.svg</a>  
+```python  
+def backprop(self, x, err):  
+	w_grad = x * err	# 가중치에 대한 그래디언트를 계산  
+	b_grad = 1 * err	# 절편에 대한 그래디언트를 계산  
+	return w_grad, b_grad  
+```  
+  
+  
+  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-선형회귀(Linear Regression)/3AAAC761-04DD-44A7-AAC4-E2650EF51A91.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 편미분을 해서 weight, bias에 대한 미분값을 구하는 과정이다.  

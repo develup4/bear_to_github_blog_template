@@ -1,8 +1,8 @@
 ---
 title:  Modern C++ in Android native - Thread
 
-categories: C++ 
-tags: Android  Thread
+categories: language  
+tags: cpp  android  Thread
  
 toc: true
 toc_sticky: true
@@ -10,7 +10,8 @@ toc_sticky: true
 
   
   
-   
+```cpp  
+  
 #include <stdio.h>  
 #include <pthread.h>  
 #include "StrongPointer.h"  
@@ -32,10 +33,11 @@ int main()
 	pthread_join( thread, 0 );  
 	return 0;  
 }  
-  
+```  
   
 Android는 Linux 위에 올라가 있으므로 리눅스에서의 쓰레드부터 살펴보면,  
 기본적인 POSIX thread는 위와 같이 사용한다.  
+```cpp  
 #include <stdio.h>  
 #include <pthread.h>  
 #include "StrongPointer.h"  
@@ -74,9 +76,12 @@ int main()
 	thread.join();  
 	return 0;  
 }  
+```  
   
 이것을 클래스로 wrapping하면 이렇게도 쓸 수 있을것이다.  
 마찬가지로 Android에서도 POSIX thread를 wrap해서 구현해놓았는데,  
+  
+```cpp  
 #ifndef _LIBS_UTILS_THREAD_H  
 #define _LIBS_UTILS_THREAD_H  
   
@@ -179,6 +184,7 @@ private:
 // —————————————————————————————————————  
 #endif // _LIBS_UTILS_THREAD_H  
 // —————————————————————————————————————  
+```  
   
 이것저것 구현사항은 많지만, 기본적인 동작은 인터페이스만 봐도 짐작할 수 있다.  
 주의할만한 사항은 쓰레드 객체를 내부에서 strong pointer로 만든 뒤, refCount를 자체적으로 1 감소시킨다는 점이다.  
@@ -188,6 +194,7 @@ private:
 즉, 반드시 sp를 써서 사용해야한다.  
 as below  
   
+```cpp  
 using namespace android;  
   
 class MyThread : public Thread  
@@ -208,10 +215,12 @@ int main()
 	thread->join();  
 	return 0;  
 }  
-  
+```  
   
   
 다음으로 살펴볼 내용은 Android에서 제공하는 Mutex이다.  
+  
+```cpp  
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  
 int sum = 0;  
   
@@ -246,9 +255,11 @@ int main()
 	printf("sum = %d\n", sum );  
 	return 0;  
 }  
+```  
   
 역시나 POSIX mutex부터 살펴보면 위와 같이 사용한다.  
   
+```cpp  
 using namespace android;  
   
 Mutex mutex;  
@@ -272,6 +283,7 @@ public:
 		return false;  
 	}  
 };  
+```  
   
 그리고 더 편하게 사용하기 위해 역시나 Android에서 wrapper 클래스를 제공하는데,  
 다만…여기서 주의할 사항이 있다.  
@@ -283,6 +295,7 @@ public:
 이것도 역시 RAII 개념이다.  
 (자원의 관리는 객체로 한다)  
   
+```cpp  
 Mutex mutex;  
 int sum = 0;  
   
@@ -303,6 +316,7 @@ public:
 		return false;  
 	}  
 };  
+```  
   
 Autolock은 예외가 발생하더라도 자동으로 unlock을 해준다.  
 (call stack에 안남나…?)  
@@ -314,6 +328,8 @@ Autolock은 예외가 발생하더라도 자동으로 unlock을 해준다.
 생산도 안했는데 소비자가 작동하는 문제가 있을 수 있다. 일의 순서가 있는 것이다.  
   
 이런 문제를 위해 POSIX는 pthread_cond_wait, pthread_cond_signal 등의 api를 제공한다.  
+  
+```cpp  
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;  
   
@@ -365,9 +381,11 @@ int main()
 	con->join();  
 	return 0;  
 }  
-  
+```  
   
 그리고 역시나 Android에서 제공하는 class가 존재한다.  
+  
+```cpp  
 using namespace android;  
   
 Mutex mutex;  
@@ -406,6 +424,7 @@ public:
 		return false;  
 	}  
 };  
+```  
   
 특이한 점은 signal()과 broadcast()가 있다는 점이다.  
 broadcast API는 여러 쓰레드에게 신호를 보낼 수 있어 편리하다.  

@@ -1,8 +1,8 @@
 ---
 title:   Multi Layer Perceptron
 
-categories: ML/DL 
-tags: Perceptron
+categories: machine_learning 
+tags: perceptron
  
 ---
 
@@ -49,7 +49,8 @@ Tensorflow playground에서 시각적으로 이것을 살펴보자.
   
 그래서 직선으로만 한다.  
 여러개의 뉴런과 레이어로 직선을 조합해서 구분하자.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7.svg'>알 수 없음.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/92AB1556-30D1-460F-9B63-B00CCEB21260.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 여러개의 뉴런과 여러개의 레이어로 직선들을 교차시켜서 구분할수가 있었다.  
@@ -59,7 +60,8 @@ Tensorflow playground에서 시각적으로 이것을 살펴보자.
   
 그런데 참 신기하게도 여러개의 레이어지만 행렬의 곱을 통해 계산을 하니 멀티레이어지만 계산 방식은 동일하다. 누가 만든건지 잘만들었다 진짜.  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%202.svg'>알 수 없음 2.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/A7AB919D-7A3A-47BA-BEE4-671FF7DB2735.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 일단 하나의 레이어부터 생각해보면 두 개의 뉴런(노란 동그라미)이 있을때,  
@@ -144,7 +146,8 @@ class SingleLayer:
   
 single layer에 뉴런만 늘어난 코드이기 때문에 기존의 변수 값이 행렬로 바꼈을 뿐 별로 다른점이 없다.  
 미분은 복잡하지만, 그런건 나중에 텐서플로우가 해주겠지...  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%203.svg'>알 수 없음 3.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/29468CF1-7E67-47AA-B95C-B04FD36A140E.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 이번엔 Layer까지 두 개인 형태이다. 행렬의 곱으로 표현하니 중간이 쏙 사라지면서 간단해진다.  
@@ -152,6 +155,7 @@ single layer에 뉴런만 늘어난 코드이기 때문에 기존의 변수 값�
   
 아래의 영상으로 좀 더 살펴보자.  
   
+https://youtu.be/IG85bJh5S8k  
   
 여기까지 너무나도 아름다웠다. 하지만…  
 취합을 위해서는 굉장히 큰 연산이 필요하다.  
@@ -165,11 +169,13 @@ Winter is comming…
 취합하는 레이어(Output Layer)부터 역방향으로 기울기를 계산한다  
   
 위 과정을 통해서 겨우겨우 구한게 y_hat 하나의 값이다. 이걸 또 역전파해서 weight, bias를 조절해야 한다. 한번에 구하려니 엄두가 안난다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%204.svg'>알 수 없음 4.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/05A77F87-810F-4A9D-A1F2-625A95329789.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 근데 잘생각해보니 체인룰에 따라 아래와 같고,  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%205.svg'>알 수 없음 5.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/E926F006-848A-42B8-B5E1-B0709E50ED7E.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 이 각각의 미분값은 구할수가 있다.  
@@ -267,7 +273,8 @@ single layer에 비해 결과에 대해 다시 계산을 하는 dual layer 개�
 다중레이어에서 결과에 다시 계산을 또하는 형태가 되었다.  
   
 전체적인 흐름을 알고 가자.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%206.svg'>알 수 없음 6.svg</a>  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/2A779B5D-4BB1-4134-A8C7-E23A43F7273A.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 이제 한단계 더 가서 출력층이 여러개인 다중분류 신경망이다.  
@@ -275,15 +282,20 @@ single layer에 비해 결과에 대해 다시 계산을 하는 dual layer 개�
 (티셔츠, 코트, 반바지, …와 같이 여러개를 분류할 수 있게 되는 것이다)  
   
 먼저 아래에서 개념을 잡고 가자.  
-  
+[YouTube](https://youtu.be/9HkqZJI_X0k)  
 정리하면 분류의 문제를 숫자로 표현하기 위함이다.  
+[YouTube](https://youtu.be/A9-C2EDtdnc)  
   
   
 소프트맥스는 한발 더 나아가서 해당 클래스에 해당할 확률을 나타낼 수 있다.  
   
 오잉 소프트맥스??  
 소프트맥스! 창세기전! …  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%207.svg'>알 수 없음 7.svg</a>  
+  
+  
+소프트맥스 함수를 적용해 출력 강도를 정규화한다.  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/2D27E811-88A5-4D9C-A784-8E62BEE1DB73.png)  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 여러 클래스 중 어느것에 해당하는지를 확률 등으로 나타내기 위해 총합이 1인 형태로 정규화 할 필요가 있고, 이때 소프트맥스 함수를 쓰게된다.  
@@ -296,20 +308,17 @@ single layer에 비해 결과에 대해 다시 계산을 하는 dual layer 개�
   
 Dicision boundary 안에 속할지 안속할지의 확률과 가설의 결과를 H(x)라고 할 때,   
 H(x)의 확률 분포를 이용하여 비용을 계산하는 것이다.  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%208.svg'>알 수 없음 8.svg</a>  
-사진 삭제  
-사진 설명을 입력하세요.  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/051F0F49-077C-4041-B319-975E4653DB7C.png)  
   
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%209.svg'>알 수 없음 9.svg</a>  
+  
 사진 삭제  
 사진 설명을 입력하세요.  
 근데 미분해서 복잡하게 계산하다보면,  
 결국 확률과 실제 값이 차이가 나온다. 계산에 별로 달라진 것은 없다.  
   
 아래의 예로 살펴보면,  
-<a href='%E1%84%8B%E1%85%A1%E1%86%AF%20%E1%84%89%E1%85%AE%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2010.svg'>알 수 없음 10.svg</a>  
-사진 삭제  
-사진 설명을 입력하세요.  
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-07-11-Multi Layer Perceptron/C31E5995-5F03-4785-9F17-62F9B2E96AD8.png)  
+  
 답은 사슴인데 확률이 0.1이다. 많이 틀렸다. 위 비용함수를 보면 y1, y2는 0이기 때문에 결국 세번째 항만 남게되고 쉽게 계산이 가능하다. 역전파해서 weight, bias를 수정한다.  
   
 코드로는 아래와 같다.  

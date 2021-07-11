@@ -1,8 +1,8 @@
 ---
 title:  Java Collections for coding test
 
-categories: Java 
-tags: Collections  CodingTest
+categories: language 
+tags: java  collections  coding_test
  
 toc: true
 toc_sticky: true

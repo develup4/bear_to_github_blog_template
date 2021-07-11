@@ -1,7 +1,7 @@
 ---
 title:  Spring memo
 
-categories: Spring
+categories: spring
 
 tags: 
 ---

@@ -1,15 +1,14 @@
 ---
 title:  Modern C++ in Android native - Binder driver
 
-categories: C++ 
-tags: Android  Binder
+categories: language  
+tags: cpp  android  binder
  
 ---
 
   
   
-   
-이제 C++이 아닌 Android specific한 내용이 나왔다.  
+ 이제 C++이 아닌 Android specific한 내용이 나왔다.  
 Android는 Linux 위에 구현되어 있기 때문에 Linux kernel의 동작부터 살펴보면,  
   
 Linux kernel은 User mode와 Kernel mode로 나뉘어 있다(32bit 보호모드)  
