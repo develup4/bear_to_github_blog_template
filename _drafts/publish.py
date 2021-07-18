@@ -91,11 +91,11 @@ def edit_by_jekyll_format(read_line):
     # transform double quotation
     if new_line.find('“') != -1:
         new_line = new_line.replace('“', '"')
-        print('[  SUCCESS  ] transform “ mark to double quotation')
+        #print('[  SUCCESS  ] transform “ mark to double quotation')
 
     if new_line.find('”') != -1:
         new_line = new_line.replace('”', '"')
-        print('[  SUCCESS  ] transform ” mark to double quotation')
+        #print('[  SUCCESS  ] transform ” mark to double quotation')
 
     return new_line
 

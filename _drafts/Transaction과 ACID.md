@@ -1,5 +1,0 @@
-# Transaction과 ACID
-#database #transaction #acid
-[ACID란? : 네이버 블로그](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sophie_yeom&logNo=220245191398)
-[DB이론 트랜잭션(transaction)과 ACID 특성을 보장하는 방법 :: victolee](https://victorydntmd.tistory.com/129)
-[YouTube](https://www.youtube.com/watch?v=e9PC0sroCzc&list=WL&index=8&t=300s)
