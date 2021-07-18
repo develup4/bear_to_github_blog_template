@@ -42,7 +42,7 @@ def rename_markdown(filename):
     new_name = datetime.today().strftime('%Y-%m-%d');
     for chunk in chunks:
         new_name = new_name + '-' + chunk
-    print('[  SUCCESS  ] Rename [' + filename + '] to [' + new_name + ']')
+    print('[  SUCCESS  ] Rename [' + filename + '] to [' + new_name + ']\n')
     renames(filename, '../_posts/' + new_name)
 
 
@@ -91,12 +91,11 @@ def edit_by_jekyll_format(read_line):
     # transform double quotation
     if new_line.find('“') != -1:
         new_line = new_line.replace('“', '"')
-        #print('[  SUCCESS  ] transform “ mark to double quotation')
 
     if new_line.find('”') != -1:
         new_line = new_line.replace('”', '"')
-        #print('[  SUCCESS  ] transform ” mark to double quotation')
-
+    
+    print('[  SUCCESS  ] transform “ mark to double quotation')
     return new_line
 
 
