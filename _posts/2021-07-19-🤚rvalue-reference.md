@@ -12,9 +12,8 @@ tags: cpp
 말그대로 `rvalue의 reference`이다. 따라서 일반변수와 같은 lvalue는 참조하지 못한다.  
 (나중 universal reference와는 구분한다)  
   
-다만 어려워지는 부분은,  
-rvalue의 정의가 Modern C++부터 굉장히 복잡해졌다는 점이다.  
-(고전적인 rvalue는 prvalue(pure rvalue)로서 하나의 영역에 불과해졌다)  
+다만 어려워지는 부분은 rvalue의 정의가 Modern C++부터 굉장히 복잡해졌다는 점이다.  
+(고전적인 rvalue는 pure rvalue로서 하나의 영역에 불과해졌다)  
   
 기본적인 사용례를 보면 아래와 같다.  
   

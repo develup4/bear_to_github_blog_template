@@ -42,7 +42,7 @@ let mut a = 2147483647;    // 32bit
 a = a + 1;    // compile error  
 ```  
   
-a는 타입을 정의하지않아 기본인 32bit이다. compile해보면 compiler는 변수의 **overflow나 round robin을 허용하지 않는다.** warning이 아니라 ~compile error~가 발생한다. 매우 엄격하다.  
+a는 타입을 정의하지않아 기본인 32bit이다. compile해보면 compiler는 변수의 **overflow나 round robin을 허용하지 않는다.** warning이 아니라 `compile error`가 발생한다. 매우 엄격하다.  
   
 ```rust  
 let mut a:i64 = 2147483647;  
@@ -66,7 +66,7 @@ println!("{}", months[3]);    // compile error
   
 먼저 설명이 빠진 부분이 있었는데 저 { }는 예상하듯 placeholder이다.  
 (like %d in C language)  
-그리고 중요한 것은 이 코드는 [3]에서 overflow가 발생하는데 ~compile error~가 발생한다.  
+그리고 중요한 것은 이 코드는 [3]에서 overflow가 발생하는데 `compile error`가 발생한다.  
   
 즉, **잘못된 memory access를 미리 막는다.**  
   
@@ -88,7 +88,7 @@ fn another_function(x:i32) -> i32 {
   
 함수가 미리 앞에 선언될 필요가 없다(모던하지?)  
   
-그리고 return value는 마지막은 `expression`이다. ~세미콜론을 까먹은 것이 아니다.~  
+그리고 return value는 마지막은 `expression`이다. `세미콜론을 까먹은 것이 아니다.`  
 (오히려 ;를 붙이면 expression이 아닌 statement가 되어서 에러가 난다)  
   
 그리고 물론 다른 언어처럼 명시적으로 return을 쓸수도 있다.  

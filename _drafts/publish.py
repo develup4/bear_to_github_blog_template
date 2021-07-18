@@ -3,6 +3,7 @@ import shutil
 from os import renames
 from datetime import datetime
 import re
+import random
 
 
 def remove_old_data():
@@ -22,7 +23,6 @@ def remove_emoji(text):
         u"\U00010000-\U0010FFFF"  #BMP characters 이외
                            "]+", flags=re.UNICODE)
     emoji_removed = emoji_pattern.sub(r'', text)
-    print('[  SUCCESS  ] Remove emoji [' + text + '] to [' + emoji_removed + ']')
     return emoji_removed
 
 
@@ -37,8 +37,7 @@ def is_python_file(filename):
 
 
 def rename_markdown(filename):
-    emoji_removed_filename = remove_emoji(filename)
-    chunks = emoji_removed_filename.split(' ');
+    chunks = filename.split(' ');
     new_name = datetime.today().strftime('%Y-%m-%d');
     for chunk in chunks:
         new_name = new_name + '-' + chunk
@@ -62,8 +61,6 @@ def write_meta_info(f, read_lines):
         current_line += 1
 
     tags = read_lines[current_line].split('#')
-    print('<Tags>')
-    print(tags)
     current_line += 1
 
     if len(tags) > 0:
@@ -94,8 +91,7 @@ def edit_by_jekyll_format(read_line):
 
     if new_line.find('”') != -1:
         new_line = new_line.replace('”', '"')
-    
-    print('[  SUCCESS  ] transform “ mark to double quotation')
+
     return new_line
 
 
@@ -103,7 +99,6 @@ def transform_image_path(filename, read_line):
     filename = remove_emoji(filename)
     # ![]({{ site.url }}{{ site.baseurl }}/assets/images/2021-06-22-IntelliJ 단축키/34BD35F8-BE30-49F2-873F-5E07A1D86BCF.png)
     # ![](IntelliJ%20%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5/34BD35F8-BE30-49F2-873F-5E07A1D86BCF.png)
-    print('[  SUCCESS  ] transform image path to /assets/images')
     return '![]({{ site.url }}{{ site.baseurl }}/assets/images/' + datetime.today().strftime('%Y-%m-%d-') + filename.split('.')[0] + '/' + read_line.split('/')[1]
 
 
@@ -121,17 +116,20 @@ def edit_markdown(filename):
 
             if edited_line.find('![](') != -1:
                 edited_line = transform_image_path(filename, edited_line)
+                print('[  SUCCESS  ] transform image path to /assets/images')
 
             f.write(edited_line)
         
      
 if __name__ == "__main__":
     remove_old_data()
-    with os.scandir() as entries:
-        for entry in entries:
-            if entry.is_file() == False:
-                move_image_directory(entry.name)
-            else:
-                if is_python_file(entry.name) == False:
-                    edit_markdown(entry.name)
-                    rename_markdown(entry.name)
+    with os.scandir() as result:
+        entries = list(result)
+        
+    for entry in entries:
+        if entry.is_file() == False:
+            move_image_directory(entry.name)
+        else:
+            if is_python_file(entry.name) == False:
+                edit_markdown(entry.name)
+                rename_markdown(entry.name)
