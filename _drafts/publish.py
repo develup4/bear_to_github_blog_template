@@ -37,7 +37,8 @@ def is_python_file(filename):
 
 
 def rename_markdown(filename):
-    chunks = filename.split(' ');
+    emoji_removed_name = remove_emoji(filename)
+    chunks = emoji_removed_name.split(' ');
     new_name = datetime.today().strftime('%Y-%m-%d');
     for chunk in chunks:
         new_name = new_name + '-' + chunk
