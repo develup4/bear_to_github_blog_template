@@ -1,0 +1,66 @@
+# Rest
+## ECMA Script 6(TODO)
+#language #javascript #es6
+
+ rest api가 아니라 나머지라는 뜻이다
+
+
+…이 파라메터에 들어가면 레스트(나머지). 여러가지 인수가 배열하나로 축소되며 관심있는거만 쓰고 나머지로 처리하기 좋다
+
+spread와는 달리 하나의 객체로 축소시키는 방법이고 문법은 …으로 같다.
+파라메터부분에 …으로 사용하면 적용된다.
+
+
+const infiniteArgs = (…kimchi) => console.log(kimchi);
+
+infiniteArgs({“1”, 2, true, “asdfasdf”});
+
+kimchi는 인자들이 들어있는 배열이 된다.
+
+
+const bestFriendMaker = ({firstOne, …rest}) => {
+   use firstOne
+}
+
+bestFreindMaker([“a”, “b”, “C”]);
+
+이렇게 사용하면 firstOne은 “a”가 된다. 이렇게 관심있는것과 나머지를 나눌때 쓰면 유용하다. 그래서 Rest 인가보다.
+
+
+destructuring, spread, rest를 사용하면 유용한 패턴을 가질 수 있다.
+
+const user = {
+  name: “nico”,
+  age: 24,
+  password: 12345
+};
+
+const killPassword = ({password, …rest}) => rest;
+const cleanUser = killPassword(user);
+
+이러면 password 필드가 없는 객체인 cleanUser를 얻을수있다.
+
+
+const user = {
+  name: “nico”,
+  age: 24,
+  password: 12345
+};
+
+const setCountry = ({ country = “KR”, …rest }) => ({ country, …rest });
+setCountry(user);
+
+이런식으로 필드를 추가할수도 있다.
+물론 자바스크립트니까 이렇게 안해도 추가는 쉽긴하다.
+
+const user = {
+  NAME: “nico”,
+  age: 24,
+  password: 12345
+};
+
+const rename = ({ NAME: name, …rest }) => ({ name, …rest });
+rename(user);
+
+이렇게 필드명을 수정할수도 있다.
+ 

@@ -1,0 +1,360 @@
+# Nest.js 기본코드 구조
+#backend #nestjs #typescript
+### <main.ts>
+
+import { ValidationPipe } from ‘@nestjs/common’;
+import { NestFactory } from ‘@nestjs/core’;
+import { AppModule } from ‘./app.module’;
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());    // 추가
+  await app.listen(3000);
+}
+bootstrap();
+### 보일러 플레이트를 통해 생성한 기본 포맷에 중간에 파이프가 하나 추가되었다.
+
+### 파이프는 express의 미들웨어같은 개념으로 모든 요청마다 전처리된다.
+
+### 실제의 main 역할은 app module를 살펴봐야 한다.
+
+
+
+### <app.module.ts>
+
+import { Module } from ‘@nestjs/common’;
+import { ConfigModule } from ‘@nestjs/config’;
+import { GraphQLModule } from ‘@nestjs/graphql’;
+import { TypeOrmModule } from ‘@nestjs/typeorm’;
+import { RestaurantsModule } from ‘./restaurants/restaurants.module’;
+import { Restaurant } from ‘./restaurants/entities/restaurant.entity’;
+import * as Joi from ‘joi’;
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === ‘dev’ ? ‘.env.dev’ : ‘.env.test’,
+      ignoreEnvFile: process.env.NODE_ENV === ‘prod’,
+      validationSchema: Joi.object({
+        NODE_ENV: Joi.string().valid(‘dev’, ‘prod’),
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.string().required(),
+        DB_USERNAME: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_NAME: Joi.string().required(),
+      }),
+    }),
+    TypeOrmModule.forRoot({
+      type: ‘postgres’,
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,    // +가 붙은 것은 문자열을 숫자로 바꾼다는 의미이다
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      synchronize: process.env.NODE_ENV !== ‘prod’, // entity에 수정이 생기면 typeorm을 통해 DB에 자동적용(migration)
+      logging: process.env.NODE_ENV !== ‘prod’,
+      entities: [Restaurant], // 여기에 추가하면 Restaurant이라는 entity가 DB에도 생성된다
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+    }),
+    RestaurantsModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+### app module에서는 세 가지 요소를 채워 넣어야 하는데,
+
+### imports, controller, providers 배열이다.
+
+### @Module 데코레이터의 요소로 채워 넣는다.
+
+
+
+### imports에 추가된 요소는,
+
+### API에 대한 request의 파라메터를 검사하는 ConfigModule과 joi,
+
+### Database에 대한 TypeORM,
+
+### GraphQL 사용을 위한 모듈,
+
+### 그리고 사용자가 직접 만든 레스토랑 모듈 등이다.
+
+
+
+### 모듈, 컨트롤러, 프로바이더가 하는일은 이전 포스트를 참고하자.
+
+
+
+### <restaurants.module.ts>
+
+import { Module } from ‘@nestjs/common’;
+import { TypeOrmModule } from ‘@nestjs/typeorm’;
+import { Restaurant } from ‘./entities/restaurant.entity’;
+import { RestraurantsResolver } from ‘./restaurants.resolver’;
+import { RestaurantService } from ‘./restaurants.service’;
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Restaurant])],
+  providers: [RestraurantsResolver, RestaurantService],
+})
+export class RestaurantsModule {}
+### 이제 본격적으로 비지니스 로직의 작성이다.
+
+### entity로는 Restaurant, Service로는 RestaurantResolver, RestaurantService를 등록하였다.
+
+### (등록은 요식행위가 아니다. 이렇게 등록을 해주면 백그라운드에서 연결하여 DI를 할 수 있도록 해준다)
+
+
+
+import { Field, ObjectType } from ‘@nestjs/graphql’;
+import { IsBoolean, IsOptional, IsString, Length } from ‘class-validator’;
+import { Column, Entity, PrimaryGeneratedColumn } from ‘typeorm’;
+
+@ObjectType()
+@Entity()
+export class Restaurant {
+  @PrimaryGeneratedColumn()
+  @Field((type) => Number)
+  id: number;
+
+  @Field((type) => String)    // For GraphQL
+  @Column()    // For TypeORM
+  @IsString()    // For Validation
+  @Length(5, 10)
+  name: string;    // Entity
+
+  @Field((type) => Boolean, { defaultValue: true })
+  @Column({ default: true })
+  @IsBoolean()
+  @IsOptional()
+  isVegan?: boolean;
+
+  @Field((type) => String)
+  @Column()
+  @IsString()
+  address: string;
+
+  @Field((type) => String)
+  @Column()
+  @IsString()
+  ownersName: string;
+}
+### 하나의 엔티티를 통해 GraphQL Schema, TypeORM model, 유효성 검증, 나중에는 DTO에 활용까지 여러가지를 한번에 할 수 있다.
+
+### 데코레이터를 살펴보면 어렵지 않게 의미를 알 수 있다.
+
+
+
+### <restauratn.resolver.ts>
+
+import { Args, Mutation, Query, Resolver } from ‘@nestjs/graphql’;
+import { argsToArgsConfig } from ‘graphql/type/definition’;
+import { number } from ‘joi’;
+import { CreateRestaurantDto } from ‘./dto/create-restaurant.dto’;
+import { UpdateRestaurantDto } from ‘./dto/update-restaurant.dto’;
+import { Restaurant } from ‘./entities/restaurant.entity’;
+import { RestaurantService } from ‘./restaurants.service’;
+
+@Resolver((of) => Restaurant)    // Restaurant entity(schema)에 대한 resolver 정의
+export class RestraurantsResolver {
+  constructor(private readonly restaurantService: RestaurantService) {}    // Service 객체 주입
+
+  @Query(() => [Restaurant])
+  restaurants(): Promise<Restaurant[]> {
+    return this.restaurantService.getAll();
+  }
+
+  @Mutation((returns) => Boolean)
+  async createRestaurant(
+    @Args(‘input’) createRestaurantDto: CreateRestaurantDto,
+  ): Promise<boolean> {
+    try {
+      await this.restaurantService.createRestaurant(createRestaurantDto);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  @Mutation((returns) => Boolean)
+  async updateRestaurant(
+    @Args(‘input’) updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<boolean> {
+    try {
+      await this.restaurantService.updateRestaurant(updateRestaurantDto);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+}
+### GraphQL 스키마를 모델에서 손쉽게 정의했으니, 그에 대한 resolver를 정의해보자.
+
+### 생성자를 우선 주목해서 봐보자.
+
+### 생성자로 서비스를 저렇게 받는다고 해도 누군가 넣어주지 않는다면 실제로 사용할 수 없다.
+
+
+
+### 실제 핵심 비지니스 로직는 서비스에서 구현하고,
+
+### 서비스에서는 TypeORM을 통해 데이터베이스에 접근하여 resolver에서 필요한 값을 처리한다.
+
+
+
+### TypeORM에서의 반환 형식이 Promise이기 때문에, Resolver의 반환값 역시 Promise이다.
+
+### 그리고 파라메터로 쓰이는 DTO에 대해서는,
+
+![](Nest.js%20%EA%B8%B0%EB%B3%B8%EC%BD%94%EB%93%9C%20%EA%B5%AC%EC%A1%B0/dthumb-phinf.pstatic.net.png)
+### DTO와 VO란? 
+###  오늘은 DTO에 관하여 포스팅 한다. DTO는 Data Transfer Object의 약자로서, VO ( Value Object )랑 혼용해서 쓴다. 보통은 DTO와 VO를 혼용해서 사용들 하지만, 필자는 용어를 정확히 구분해서 쓰는걸 중요하다.. 
+###  mommoo.tistory.com
+
+[DTO와 VO란?](https://mommoo.tistory.com/61)
+
+[오늘은 DTO에 관하여 포스팅 한다. DTO는 Data Transfer Object의 약자로서, VO ( Value Object )랑 혼용해서 쓴다. 보통은 DTO와 VO를 혼용해서 사용들 하지만, 필자는 용어를 정확히 구분해서 쓰는걸 중요하다..](https://mommoo.tistory.com/61)
+
+[mommoo.tistory.com](https://mommoo.tistory.com/61)
+
+
+### <create-restaurant.dto.ts>
+
+import { Field, InputType, OmitType } from ‘@nestjs/graphql’;
+import { IsBoolean, IsString, Length } from ‘class-validator’;
+import { Restaurant } from ‘../entities/restaurant.entity’;
+
+@InputType()
+export class CreateRestaurantDto extends OmitType(
+  Restaurant,
+  [‘id’],
+  InputType,
+) {}
+//  {
+//   @Field((type) => String)
+//   @IsString()
+//   @Length(5, 10)
+//   name: string;
+
+//   @Field((type) => Boolean)
+//   @IsBoolean()
+//   isVegan: boolean;
+
+//   @Field((type) => String)
+//   @IsString()
+//   address: string;
+
+//   @Field((type) => String)
+//   @IsString()
+//   ownersName: string;
+// }
+### 주석처리한것처럼 직접 만들수도 있지만, 기존에 만든 entity에서 특정 필드를 제외한던지해서 DTO를 쉽게 만들 수 있다.
+
+
+
+### <update-restaurant.dto.ts>
+
+import {
+  ArgsType,
+  Field,
+  InputType,
+
+  PartialType,
+} from ‘@nestjs/graphql’;
+import { CreateRestaurantDto } from ‘./create-restaurant.dto’;
+
+@InputType()
+export class UpdateRestaurantInputType extends PartialType(
+  CreateRestaurantDto,
+) {}
+
+@ArgsType()
+export class UpdateRestaurantDto {
+  @Field((type) => Number)
+  id: number;
+
+  @Field((type) => UpdateRestaurantInputType)
+  data: UpdateRestaurantInputType;
+}
+### 이미 만든 CreateRestaurantDto를 이용해 위처럼 DTO를 만들 수도 있다.
+
+### 마지막으로 제일 중요하다고 할 수 있는 서비스이다.
+
+
+
+### <restaurant.service.ts>
+
+import { Injectable } from ‘@nestjs/common’;
+import { InjectRepository } from ‘@nestjs/typeorm’;
+import { Repository } from ‘typeorm’;
+import { CreateRestaurantDto } from ‘./dto/create-restaurant.dto’;
+import { UpdateRestaurantDto } from ‘./dto/update-restaurant.dto’;
+import { Restaurant } from ‘./entities/restaurant.entity’;
+
+@Injectable()    // 중요
+export class RestaurantService {
+  constructor(
+    @InjectRepository(Restaurant)    // repository를 주입
+    private readonly restaurants: Repository<Restaurant>,
+  ) {}
+
+  getAll(): Promise<Restaurant[]> {
+    return this.restaurants.find();
+  }
+
+  createRestaurant(
+    createRestaurantDto: CreateRestaurantDto,
+  ): Promise<Restaurant> {
+    const newRestaurant = this.restaurants.create(createRestaurantDto);
+    return this.restaurants.save(newRestaurant);
+  }
+
+  updateRestaurant({ id, data }: UpdateRestaurantDto) {
+    return this.restaurants.update(id, { …data });
+  }
+}
+### TypeORM을 통해 DB를 업데이트하는 방식은,
+
+### Active Record 패턴과 Data Mapper 방식이 있는데 Nest.js는 후자를 사용하고 있다.
+
+### 전자가 더 직관적일수도 있지만 큰 차이는 없어보인다.
+
+
+
+### Data Mapper 방식은 Repository 객체를 업데이트하는 방식으로 데이터베이스를 접근한다.
+
+### 생성자를 주목해서 봐보자. 역시나 Repository가 주입된다.
+
+### 클래스 내에서 자유롭게 Repository를 사용할 수 있다.
+
+
+
+### Repository를 통해 비지니스 로직을 구현해서 Resolver나 Mutation에게 값을 전달한다.
+
+
+
+### <참고 프로젝트>
+
+### https://github.com/develup4/Practice-UberClone
+
+[https://github.com/develup4/Practice-UberClone](https://github.com/develup4/Practice-UberClone)
+
+![](Nest.js%20%EA%B8%B0%EB%B3%B8%EC%BD%94%EB%93%9C%20%EA%B5%AC%EC%A1%B0/dthumb-phinf.pstatic.net%202.png)
+### develup4/Practice-UberClone 
+###  https://nomadcoders.co/nuber-eats/. Contribute to develup4/Practice-UberClone development by creating an account on GitHub. 
+###  github.com
+
+[develup4/Practice-UberClone](https://github.com/develup4/Practice-UberClone)
+
+[https://nomadcoders.co/nuber-eats/. Contribute to develup4/Practice-UberClone development by creating an account on GitHub.](https://github.com/develup4/Practice-UberClone)
+
+[github.com](https://github.com/develup4/Practice-UberClone)
+
+
+
