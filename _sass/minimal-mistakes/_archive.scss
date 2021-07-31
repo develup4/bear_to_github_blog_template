@@ -74,6 +74,7 @@
 
 .archive__item-excerpt {
   margin-top: 0;
+  margin-bottom: 60px;
   font-size: $type-size-6;
 
   & + p {
@@ -93,7 +94,7 @@
   font-size: 14px;
   margin-left: 6px;
   font-weight: 500;
-  padding-top: 4px;
+  padding-top: 14px;
 }
 
 .archive__single-tags {
@@ -143,6 +144,7 @@
    ========================================================================== */
 
 .list__item {
+  margin-top: 25px;
   .page__meta {
     margin: 0 0 4px;
     font-size: 0.6em;

@@ -25,12 +25,15 @@ post.id %} {% assign title = post.title | markdownify | remove: "
       {% else %}
       <div class="flex">
         <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
+        {% if include.type != "grid" %}
         <p class="archive__single-subtitle">{{ post.subtitle }}</p>
+        {% endif %}
       </div>
+      {% if include.type != "grid" %}
       <p class="archive__single-tags">
         {% for tag in post.tags %} #{{ tag }} {% endfor %}
       </p>
-      {% endif %}
+      {% endif %} {% endif %}
     </h2>
   </article>
 </div>
