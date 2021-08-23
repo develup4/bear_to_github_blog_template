@@ -173,5 +173,3 @@ if __name__ == "__main__":
             if is_python_file(entry.name) == False:
                 edit_markdown(entry.name)
                 rename_markdown(entry.name)
-
-# github md에 프로세스 정리하자

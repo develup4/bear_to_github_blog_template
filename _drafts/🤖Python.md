@@ -1,0 +1,94 @@
+# 🤖Python
+## 스타맵아님
+### 2021-05-10
+#language #python #syntax
+## Introduce
+![](%F0%9F%A4%96Python/python-logo-master-v3-TM.png.webp)
+기본적으로 문법이 심플해서 크게 정리할 내용이 없긴하다. 물론 내가 고급 내용을 다룰 일이 없어서이긴 하지만, 기본적인 철학 자체가 굉장히 프렌들리하고 영어에 가깝게 개발이 가능하도록 해서 사용하기가 편리하다. 강력한 커뮤니티를 바탕으로 PEP(Python Enhancement Proposal) 문서에 의해 체계적으로 정의된 문법을 가지고 있다.
+
+C++을 메인으로 하던 내가 나중에서야 받아들이기에 python 문법이 이질적이라 받아들이기에 어려움이 있었지만 막상 사용해보니 편리한 점이 많이 있었고, 특히나 django라는 잘 만들어진 프레임워크를 가진 것이 큰 매력이었다. 물론 생태계적으로 django보다는 데이터 처리에 더 많은 강점을 가지고 있긴하다.
+
+### 특징
+간단하게 특징을 살펴보면,
+- javascript처럼 동적 타이핑(dynamic typing) 언어이다. 개인적으로는 이것이 주 언어로 사용할 수 없는 가장 큰 이유이기도 하다.
+- 객체 접근에 제한이 없다. 이것 또한 전통적인 OOP에, 특히 접근지정자를 중요하게 생각하는 나에게 어려움이다 ㅠ
+- 모듈, 클래스, 객체와 같은 언어의 요소가 내부에서 접근할 수 있고, 리플렉션을 이용한 기술을 쓸 수 있다.
+
+### 철학
+파이썬의 핵심 철학은(PEP 20),
+* 아름다운 게 추한 것보다 낫다. (Beautiful is better than ugly)
+* 명시적인 것이 암시적인 것 보다 낫다. (Explicit is better than implicit)
+* 단순함이 복잡함보다 낫다. (Simple is better than complex)
+* 복잡함이 난해한 것보다 낫다. (Complex is better than complicated)
+* 가독성은 중요하다. (Readability counts)
+
+
+## Syntax
+체계적으로 정리할 필요는 없어보인다. 수많은 자료가 있고, 기본적인 문법은 전혀 어렵지 않기 때문에. 그래서 체계적이지 않게 막 정리를 해보려한다(…)
+
+- python의 Naming Convention은 `Snake Case`를 채용하였다. 예를 들어 `user_address` 이런식이다.
+
+- 자료구조
+
+```python
+# 1. List : 수정이 가능한 리스트 형태의 자료구조이다
+days = ["mon", "tue", "wed", 4, True]
+# 다른 언어의 배열처럼 생겼지만 아니라는 것을 주의하자
+# 그리고 cpp의 tuple처럼 여러 타입을 담을 수 있다. dynamic typing의 위력이다.
+
+# 아래와 같은 표현이 가능하다.
+days[3]
+len(days)
+"mon" in days
+min(days)
+int(days[4])
+
+# 2. Tuple : 수정이 불가능한 리스트 형태의 자료구조이다
+days=("mon", "tue", "wed")
+
+# 3. Dictionary : (key, value) 세트로 구성된 자료구조로 javascript의 object처럼 생겼다.
+# 그래서인지 JSON으로의 변환이 쉬운편이다.
+user = {
+  "name" : "hoohoo",
+  "age": 35
+}
+
+# 아래와 같이 접근이 가능하다.
+user["name"] = "kim"
+```
+
+
+- 함수의 파라메터는 기본적으로 순서에 의존하지만 `keyworded argument`로 쓸수도 있다.
+
+```python
+def test_function(*args, **kwargs):
+	args[1]
+	kwargs["test"]
+
+def plus(a,b):
+  return a+b
+
+plus(1, 3)
+plus(b=3, a=1)
+```
+
+- 조건문을 영어에 가깝게 사용할 수 있다.
+
+```python
+elif a is not 10 and b is 5:
+    pass
+
+# 다만 is not과 !=는 완전히 같지는 않다.
+# 전자는 레퍼런스의 비교, 후자는 값의 비교이다.
+# 마치 자바의 ==과 equals()의 차이와 같다.
+```
+
+- 모듈 사용법
+
+```python
+# math내 모든 것을 import
+import math
+
+# 일부만 import, 별명 지정(가능한 일부만 import하는 것이 좋다)
+from math import ceil, fsum as good_sum
+```

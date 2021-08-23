@@ -1,0 +1,44 @@
+# 🇺🇸OPIc IM 대비과정
+## Role play “MP3 Player”
+### 2020–08-23
+#study #english #opic
+
+11. I’d like to give you a situation for you to act out. You’re planning to buy an MP3 player. Call your friend and ask several questions about the MP3 player he/she is using.
+
+[Google 번역](https://translate.google.co.kr/?hl=ko&tab=rT&sl=auto&tl=en&text=Hi%20there.%20it%27s%20me.%20How%20was%20it%20going%3F%20I%27m%20calling%20to%20ask%20a%20few%20questions%20about%20your%20MP3%20player.%20My%20mp3%20player%20is%20very%20old%20and%20some%20of%20the%20functions%20are%20not%20working%20properly.%20So%2C%20I%27d%20like%20to%20get%20a%20new%20one.%20Where%20did%20you%20get%20yours%3F%20Did%20you%20get%20it%20from%20the%20department%20store%20or%20Samsung%20electronics%3F%20How%20much%20did%20you%20pay%20for%20it%3F%20Was%20it%20expensive%3F%20What%27s%20the%20name%20of%20the%20MP3%20player%20you%20have%3F%20Call%20me%20back.%20Bye.&op=translate)
+
+```
+Hi there. it's me. How was it going? I'm calling to ask a few questions about your MP3 player. My mp3 player is very old and some of the functions are not working properly. So, I'd like to get a new one. Where did you get yours? Did you get it from the department store or Samsung electronics? How much did you pay for it? Was it expensive? What's the name of the MP3 player you have? Call me back. Bye.
+```
+
+- The department store or Samsung electronics? : A를 올리고 B를 내린다.
+- 질문1 : Where did you get yours?
+- 질문2 : Did you get it from the department store or Samsung electronics?
+- 질문3 : How much did you pay for it?
+- 질문4 : Was it expensive?
+- 질문5 : What is the name of the MP3 player you have?
+
+12. I’m sorry, but there is a problem I need you to resolve. You borrowed your friend’s MP3 player but you broke it by accident. all your friend and explain the situation. Provide two or three alternatives that will solve the situation.
+(AL 수준)
+
+[Google 번역](https://translate.google.co.kr/?hl=ko&tab=rT&sl=auto&tl=en&text=Hey.%20It%27s%20me.%20How%27s%20it%20going%3F%20I%20have%20some%20bad%20news.%20Remember%3F%20I%20borrowed%20your%20mp3%20player%20the%20other%20day.%20But%2C%20I%20accidently%20dropped%20it%20and%20it%27s%20broken%20now.%20I%27m%20really%20sorry.%20I%20can%20take%20it%20to%20a%20repare%20shop%20to%20get%20it%20fixed%20or%20I%20can%20buy%20you%20a%20new%20one%20at%20Samsung%20Electronics.%20If%20you%20don%27t%20like%20that%20idea%2C%20I%27ll%20give%20you%20the%20money%2C%20that%20way%20you%20can%20buy%20whatever%20you%20like.%20Please%20accept%20my%20apology.%20I%20promise%20I%27ll%20make%20it%20up%20to%20you.%20Call%20me%20back%20soon.%20Bye.&op=translate)
+
+```
+Hey. It's me. How's it going? I have some bad news. Remember? I borrowed your mp3 player the other day. But, I accidently dropped it and it's broken now. I'm really sorry. I can take it to a repare shop to get it fixed or I can buy you a new one at Samsung Electronics. If you don't like that idea, I'll give you the money, that way you can buy whatever you like. Please accept my apology. I promise I'll make it up to you. Call me back soon. Bye.
+```
+
+- the other(디 아더)
+- accidently(액시던리)
+- dropped it(쥬랍딧)
+- apology(어팔러지) : [o]발음은 ‘ㅗ’가 아니라 ‘ㅏ’다.
+
+13. That’s the end of the situation. Do you have any personal experience when you couldn’t use a device? What exactly happended and how did you fix the problem?
+
+[Google 번역](https://translate.google.co.kr/?hl=ko&tab=rT&sl=auto&tl=en&text=I%20remember%20one%20time%20I%20didn%27t%20have%20my%20phone%20with%20me.%20So%20I%20borrowed%20my%20friend%27s%20phone.%20When%20I%20finished%20using%20it%2C%20it%20had%20stopped%20working.%20I%20didn%27t%20know%20what%20was%20wrong.%20So%2C%20I%20took%20it%20to%20a%20repair%20shop%20and%20got%20it%20fixed.%20I%20felt%20terrible%20because%20it%20wasn%27t%20mine.%20ever%20since%20then%2C%20I%20always%20try%20to%20be%20careful%20when%20I%20use%20someone%20else%27s%20belongings.&op=translate)
+
+```
+I remember one time I didn't have my phone with me. So I borrowed my friend's phone. When I finished using it, it had stopped working. I didn't know what was wrong. So, I took it to a repair shop and got it fixed. I felt terrible because it wasn't mine. ever since then, I always try to be careful when I use someone else's belongings.
+```
+
+- borrowed(바러우드)
+- got it fixed : 수리를 직접하는게 아니라 서비스를 받는 것이므로 수동태

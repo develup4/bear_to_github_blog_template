@@ -1,0 +1,386 @@
+# Nest.js 입문
+### 2021-07-11
+#backend #nestjs #typescript
+$ npm i -g @nestjs/cli
+$ nest new project-name
+### 위 커맨드로 Command line 모듈을 먼저 설치한 뒤에,
+
+### nest new 키워드로 프로젝트를 생성한다.
+
+### 프레임워크답게 보일러 플레이트도 당연히 내장하고 있다.
+
+
+
+### 생성된 프로젝트를 살펴보면 생성된 여러 파일들이 있는데,
+
+![](Nest.js%20%EC%9E%85%EB%AC%B8/image.png)
+### 프로그램의 시작점은 main.ts 파일이다.
+
+
+
+import { NestFactory } from ‘@nestjs/core’;
+import { AppModule } from ‘./app.module’;
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
+bootstrap();
+### bootstrap이라는 함수명은 바꿔도 상관없다.
+
+### (바꿀 필요가 있는지는 모르겠지만)
+
+
+
+### 그리고 거기서 AppModule을 생성하면서 3000번 포트로 서버를 시작한다.
+
+### 여기서 AppModule의 모듈은 우리가 생각하는 그 모듈이다.
+
+### (인증모듈, 결제모듈 등등…하지만 시작점은 AppModule이라는거)
+
+
+
+### app.module.ts 파일을 살펴보면,
+
+import { Module } from ‘@nestjs/common’;
+import { AppController } from ‘./app.controller’;
+import { AppService } from ‘./app.service’;
+
+// Decorator
+@Module({
+  imports: [],
+  controllers: [AppController],
+  providers: [AppService],
+})
+
+export class AppModule {}
+### 모듈에는 Controller, Provider 들이 있으며,
+
+### 배열의 형태로 여러개 입력받을 수 있다.
+
+
+
+### 결론부터 말하자면 Controller는 express의 라우터와 같은 역할이며,
+
+### Provider는 비지니스 로직을 담는 서비스이다.
+
+### (비지니스 로직과 라우터를 구분하는 아키텍쳐이다)
+
+
+
+### 이러한 매핑정보를 @Module 데코레이터를 통해 정의한다.
+
+### (데코레이터는 클래스 위에 존재하는 함수이고 클래스의 기능추가를 위한 것이다)
+
+
+
+### app.controller.ts 파일을 살펴보면,
+
+import { Controller, Get, Post } from ‘@nestjs/common’;
+import { AppService } from ‘./app.service’;
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+
+  @Post(‘/hello’)
+  sayHello(): string {
+    return ‘Hello everyone’;
+  }
+}
+### @Get, @Post 데코레이터를 통해 express에서처럼 라우터를 정의한다.
+
+### (데코레이터는 클래스나 함수 바로 위에 존재해야하며, 한줄이라도 떨어져서는 안된다는 것을 주의한다)
+
+### => 데코레이터가 어떻게 동작하는 함수인지 따로 조사해보자.
+
+
+
+### 코드를 살펴보면,
+
+### Post의 경우 바로 문자열을 반환하고 있는데 권장되지 않는 방식이다.
+
+### 비지니스 로직을 분리하는것이 nest의 철학이기 때문이다.
+
+
+
+### 이번엔 비지니스 로직을 담당하는 app.service.ts를 살펴보면,
+
+import { Injectable } from ‘@nestjs/common’;
+
+@Injectable()
+export class AppService {
+  getHello(): string {
+    return ‘Hello World!’;
+  }
+}
+### 실제로 비지니스 로직을 정의하고 있다.
+
+### 나중에 데이터베이스에 접근한다던지하는 구체적인 코드가 들어가는 것이고,
+
+### controller는 단지 url을 가져오기 위한 곳으로 한정하는 것이다.
+
+
+
+### 다만 하나의 서비스는 하나의 로직을 담당하도록 하자.
+
+### SRP를 지키는것이 중요하다.
+
+
+
+
+
+![](Nest.js%20%EC%9E%85%EB%AC%B8/image%202.png)
+### nest는 프레임워크답게 code generating 기능도 cli를 통해서 제공한다.
+
+### 가능한것들에 대해 알아보고 싶다면 terminal에서 nest라고 입력해보자.
+
+
+
+![](Nest.js%20%EC%9E%85%EB%AC%B8/image%203.png)
+### 이런식으로 커맨드를 통해 movies라는 컨트롤러를 생성해냈다.
+
+
+
+![](Nest.js%20%EC%9E%85%EB%AC%B8/image%204.png)
+### 이런식으로 생성이 되며,
+
+### spec.ts는 테스트를 위한 파일이다. 테스트까지 신경을 써주는 것이다.
+
+
+
+import { Controller, Get } from ‘@nestjs/common’;
+
+@Controller(‘movies’)
+export class MoviesController {
+    @Get()
+    getAll():string {
+        return “This will return all movies”;
+    }
+}
+### 컨트롤러에 Get 라우터를 하나 생성해보았다.
+
+### 그다음에 localhost:3000에 접속해보면 404 not found가 뜬다.
+
+
+
+### 우리가 생성한 컨트롤러는 movies이고,
+
+### 그러면 엔트리 포인트도 movies가 되는 것이다.
+
+### 따라서 localhost:3000/movies에 접속했을때 위의 문구가 뜬다.
+
+
+
+  @Get(‘/:id’)
+  getOne(@Param(‘id’) movieId: string) {
+    return `This will return one movie with the id: ${movieId}`;
+  }
+
+  @Post()
+  create() {
+    return 'This will create a movie';
+  }
+
+  @Delete('/:id')
+  remove(@Param('id') movieId: string) {
+    return `This will delete a movie with the id: ${movieId}`;
+  }
+
+  @Patch('/:id')
+  patch(@Param('id') movieId: string) {
+    return `This will patch a movie with the id: ${movieId}`;
+  }
+### express에서처럼 파라메터를 받을 수 있는데,
+
+### 파라메터를 얻어오는 방식을 주의해서 보도록 하자. 이것도 데코레이터를 이용한다.
+
+### (스프링도 거의 비슷하다)
+
+
+
+### Update를 할때 Put 대신 Patch를 이용하는 이유는
+
+### Put은 모든 리소스를 업데이트하기 때문이라고 한다. 더 알아보자.
+
+
+
+  @Get('search')
+  search(@Query('year') seachingYear: string) {
+    return `We are searching for a movie made after: ${seachingYear}`;
+  }
+
+  @Get('/:id')
+  @Get(':id')
+  getOne(@Param('id') movieId: string) {
+    return `This will return one movie with the id: ${movieId}`;
+  }
+### express와 마찬가지로, search가 :id보다 아래에 정의되는 경우,
+
+### search도 id로 인식되기 때문에 더 위에 정의하는 것을 주의한다.
+
+
+
+  @Patch(‘:id’)
+  patch(@Param(‘id’) movieId: string, @Body() updateData) {
+    return {
+      updatedMovie: movieId,
+      …updateData,
+    };
+### request body는 위와같이 받는다.
+
+
+
+@Controller(‘movies’)
+export class MoviesController {
+  constructor(private readonly moviesService: MoviesService) {}  // Service는 생성자를 통해 자동으로 받는다
+
+  getAll(): Movie[] {
+    return this.moviesService.getAll();   // 사용
+  }
+### 컨트롤러에서 서비스를 이용할 때, 수동으로 import하는것이 아니라 프레임워크에 의해 생성자를 통해서 전달받아 사용하는 것이다.
+
+### 서비스 위에 있던 @Injectable()을 기억해보자. 의존성 주입방식이다.
+
+### 아마도 Service의 부모타입으로 다형성을 통해 이미 코드가 작성되어 있을 것이고 Specific object를 주입하는 것일것이다.
+
+
+
+  @Post()
+  create(@Body() movieData) {
+    return movieData;
+    return this.moviesService.create(movieData);
+  }
+### 실제로 이 Post를 보내보면 201 Created를 응답으로 받게된다.
+
+### 우리는 Response에 설정한적이 없지만 Nest가 자동으로 해주는 것이다.
+
+
+
+  getOne(id: string): Movie {
+    return this.movies.find(movie => movie.id === +id);
+    const movie = this.movies.find(movie => movie.id === +id);
+    if (!movie) {
+      throw new NotFoundException(`Movie with ID ${id} not found.`);
+    }
+    return movie;
+  }
+### 원하는것을 찾지 못했을때 404, NotFound를 응답하는것도 위와같이 NotFoundException을 통해서 쉽게 가능하다.
+
+### (HTTP exception을 확장한 것이다)
+
+
+
+
+
+
+
+import { NestFactory } from ‘@nestjs/core’;
+import { AppModule } from ‘./app.module’;
+import { ValidationPipe } from ‘@nestjs/common’;
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(    // 추가되었다
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+  await app.listen(3000);
+}
+bootstrap();
+### Pipe는 express의 미들웨어와 같은 개념이다.
+
+### 그 중 ValidationPipe는 Request에 대한 유효성 검증을 위한 것인데,
+
+### 예를들어 Update를 통해 기존 데이터에 이상한 필드를 추가한다던지,
+
+### 타입이 맞지않는 값을 넣는다던지하는 것을 막을 수 있다.
+
+
+
+    “class-transformer”: “^0.3.1”,
+    “class-validator”: “^0.12.2”,
+### 그것을 위해 이것들을 설치하고,
+
+### 위 코드처럼 main.ts에 수정을 하자.
+
+
+
+import { IsString, IsNumber } from ‘class-validator’;
+
+export class CreateMovieDto {
+  @IsString()
+  readonly title: string;
+
+  @IsNumber()
+  readonly year: number;
+
+  @IsString({ each: true })
+  readonly genres: string[];
+}
+### DTO를 만들어서 인풋 데이터타입을 클래스로 만든 뒤,
+
+### (Data transfer object)
+
+### (=> Interface가 아니라 class로 정의를 하기때문에, react등에서 interface를 통해 데이터를 정의하면 같이 쓸 수 없다는 단점이 있다고 한다)
+
+
+
+  create(@Body() movieData: CreateMovieDto) {
+    return this.moviesService.create(movieData);
+  }
+### 실제 인풋데이터 타입도 DTO로 지정해주자.
+
+### 하지만 이것만으로 달라지는 것은 없으며(필드 추가등이 이래도 가능하다)
+
+
+
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+### 처음 Main.ts에서 설정한 것에 의해 데이터가 필터링된다.
+
+
+
+### whitelist는 데코레이터가 없는 필드는 아에 도달하지 않도록 하는 것이며,
+
+export class CreateMovieDto {
+  @IsString()
+  readonly title: string;
+### 이런식으로 dto에 데코레이터로 지정된 것만 보내준다는 것이다.
+
+
+
+### transform은 예를 들어 id를 보낼때 url의 파라메터이므로 string이겠지만,
+
+  getOne(@Param(‘id’) movieId: number): Movie {
+    return this.moviesService.getOne(movieId);
+  }
+### 이렇게 number로 받게되면 nest가 자동으로 형변환을 해서 보내준다는 것이다.
+
+
+
+
+
+### 그리고 nest.js는 기본적으로 express위에서 동작하기때문에
+
+  @Get()
+  getHello(@Req() req, @Res() res): string {
+    return this.appService.getHello();
+  }
+### express처럼 이런식으로 Request, Response객체를직접 조작할 수도 있다.
+
+
+
+### 하지만 nest.js는 express뿐만아니라 fastify라는 express와 비슷하지만 두배 빠른 프레임워크 위에서도 동작할 수 있기 때문에, 되도록 위와같은 사용을 지양하라고 한다. 이런것이 없다면 Nest.js의 설정만으로 기반이 되는 프레임워크를 바로 바꿀 수 잇다.
+
