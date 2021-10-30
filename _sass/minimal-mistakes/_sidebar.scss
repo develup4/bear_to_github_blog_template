@@ -94,7 +94,7 @@
 
   @include breakpoint($x-large) {
     width: $right-sidebar-width;
-    margin-right: -355px; // 실제 toc 위치
+    margin-right: -255px; // 실제 toc 위치
   }
 }
 
