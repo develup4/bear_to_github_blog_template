@@ -20,7 +20,7 @@ title: "내 인프라는 나 자신이었다"
 title_separator: "-"
 subtitle:
 name: "내 인프라는 나 자신이었다"
-description: "Spring Reboot 프로젝트 진행 중"
+description: "Spring Reboot"
 url: "https://develup4.github.io"
 baseurl: # the subpath of your site, e.g. "/blog"
 repository: "develup4/develup4.github.io"
@@ -95,7 +95,7 @@ analytics:
 author:
   name: "깨발자"
   avatar: "/assets/Teaser.jpeg"
-  bio: "Spring Reboot 프로젝트"
+  bio: "Spring Reboot"
   location: "South Korea"
   email: "develup4@gmail.com"
   links:
