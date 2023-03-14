@@ -44,7 +44,7 @@ Bear는 깔끔한 메모를 작성할 수 있지만 완벽한 형태의 Markdown
 
 ## Reference
 ### [Minimal Mistakes Jekyll theme](https://mmistakes.github.io/minimal-mistakes/)
-### 박상범 블로그(https://parksb.github.io)
+### 박성범 블로그(https://parksb.github.io)
 
 ## License
 MIT license
